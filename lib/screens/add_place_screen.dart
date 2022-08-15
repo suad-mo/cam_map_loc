@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/image_input.dart';
+import '../providers/great_places.dart';
 
 // ignore: use_key_in_widget_constructors
 class AddPlacesScreen extends StatefulWidget {
@@ -13,6 +17,21 @@ class AddPlacesScreen extends StatefulWidget {
 
 class _AddPlacesScreenState extends State<AddPlacesScreen> {
   final _titleController = TextEditingController();
+  File? _pickedImage;
+
+  void _selectImage(File pickedImage) {
+    _pickedImage = pickedImage;
+    //setState(() {}); Nema potrebe za ovim da ne rendamo cijeli widget
+  }
+
+  void _savePlace() {
+    if (_titleController.text.isEmpty || _pickedImage == null) {
+      return;
+    }
+    Provider.of<GreatPlaces>(context, listen: false)
+        .addPlace(_titleController.text, _pickedImage!);
+    Navigator.of(context).pop();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +56,7 @@ class _AddPlacesScreenState extends State<AddPlacesScreen> {
                     const SizedBox(
                       height: 10,
                     ),
-                    const ImageInput()
+                    ImageInput(_selectImage),
                   ],
                 ),
               ),
@@ -46,7 +65,7 @@ class _AddPlacesScreenState extends State<AddPlacesScreen> {
           ElevatedButton.icon(
             label: const Text('Add Place'),
             icon: const Icon(Icons.add),
-            onPressed: () {},
+            onPressed: _savePlace,
             style: ElevatedButton.styleFrom(
               onPrimary: Theme.of(context).colorScheme.onPrimary,
               primary: Theme.of(context).colorScheme.secondary,
