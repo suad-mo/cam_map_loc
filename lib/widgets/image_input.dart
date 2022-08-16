@@ -5,10 +5,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart' as syspaths;
 
-// ignore: use_key_in_widget_constructors
 class ImageInput extends StatefulWidget {
   final Function onSelectImage;
 
+  // ignore: prefer_const_constructors_in_immutables, use_key_in_widget_constructors
   ImageInput(this.onSelectImage);
 
   @override
@@ -69,8 +69,8 @@ class _ImageInputState extends State<ImageInput> {
           child: TextButton.icon(
             icon: const Icon(Icons.camera),
             label: const Text('Take Picture'),
-            style:
-                TextButton.styleFrom(primary: Theme.of(context).primaryColor),
+            // style:
+            //     TextButton.styleFrom(primary: Theme.of(context).primaryColor),
             onPressed: _takePicture,
           ),
         ),
