@@ -59,7 +59,7 @@ class _AddPlacesScreenState extends State<AddPlacesScreen> {
                     ),
                     ImageInput(_selectImage),
                     const SizedBox(height: 10),
-                    const LocationInput(),
+                    LocationInput(),
                   ],
                 ),
               ),
