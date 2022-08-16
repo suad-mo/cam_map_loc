@@ -1,5 +1,6 @@
 import '../config.dart' as conf;
 
+// ignore: constant_identifier_names
 const GOOGLE_API_KEY = conf.apiGoogleKey;
 
 class LocationHelper {
