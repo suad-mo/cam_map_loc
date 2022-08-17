@@ -43,6 +43,11 @@ class PlacesListScreen extends StatelessWidget {
                                 FileImage(greatPlaces.items[i].image),
                           ),
                           title: Text(greatPlaces.items[i].title),
+                          subtitle: greatPlaces.items[i].location.address ==
+                                  null
+                              ? const Text('Null')
+                              : Text(greatPlaces.items[i].location.address!),
+                          // Text('Subtitle'),
                           onTap: () {
                             // Go to detail page
                           },
