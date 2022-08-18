@@ -24,7 +24,7 @@ class LocationHelper {
       },
     );
     final response = await http.get(url);
-    print(response.body.toString());
+    //print(response.body.toString());
     return jsonDecode(response.body)['results'][0]['formatted_address'];
   }
 }

@@ -11,8 +11,8 @@ class MapScreen extends StatefulWidget {
   // ignore: prefer_const_constructors_in_immutables, use_key_in_widget_constructors
   MapScreen({
     this.initialLocation = const PlaceLocation(
-      latitude: 37.422,
-      longitude: -122.084,
+      latitude: 37.422, //43.8597, // 37.422,
+      longitude: -122.084, // 18.4121, // -122.084,
       address: 'Alipašina 6c, Sarajevo 71000, Bosnia and Herzegovin',
     ),
     this.isSelecting = false,
@@ -33,6 +33,10 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final initLoc = LatLng(
+      widget.initialLocation.latitude,
+      widget.initialLocation.longitude,
+    );
     return Scaffold(
       appBar: AppBar(
         title: const Text('Your Map'),
@@ -52,19 +56,20 @@ class _MapScreenState extends State<MapScreen> {
         //myLocationEnabled: !kReleaseMode ? false : true,
         mapType: MapType.normal,
         initialCameraPosition: CameraPosition(
-          target: LatLng(
-            widget.initialLocation.latitude,
-            widget.initialLocation.longitude,
-          ),
+          target: initLoc,
+          // LatLng(
+          //   widget.initialLocation.latitude,
+          //   widget.initialLocation.longitude,
+          // ),
           zoom: 16,
         ),
         onTap: widget.isSelecting ? _selectLocation : null,
-        markers: _pickedLocation == null
+        markers: (_pickedLocation == null && widget.isSelecting)
             ? {}
             : {
                 Marker(
                   markerId: const MarkerId('m1'),
-                  position: _pickedLocation!,
+                  position: _pickedLocation ?? initLoc,
                 )
               },
       ),
