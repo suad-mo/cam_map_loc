@@ -66,4 +66,10 @@ class GreatPlaces with ChangeNotifier {
         .toList();
     notifyListeners();
   }
+
+  Future<void> deletePlace(String id) async {
+    final existingPlaceIndex = _items.indexWhere((place) => place.id == id);
+    //Place existingPlace = _items[existingPlaceIndex];
+    _items.removeAt(existingPlaceIndex);
+  }
 }
