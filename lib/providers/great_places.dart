@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 
 import '../models/place.dart';
+import '../models/http_exception.dart';
 import '../helpers/db_helper.dart';
 import '../helpers/location_helper.dart';
 
@@ -65,5 +66,21 @@ class GreatPlaces with ChangeNotifier {
         )
         .toList();
     notifyListeners();
+  }
+
+  Future<void> deletePlace(String id) async {
+    final existingIndexPlace = _items.indexWhere((place) => place.id == id);
+    Place? existingPlace = _items[existingIndexPlace];
+
+    _items.removeAt(existingIndexPlace);
+    notifyListeners();
+
+    final deleteCoun = await DBHelper.delete('user_places', id);
+    if (deleteCoun <= 0) {
+      _items.insert(existingIndexPlace, existingPlace);
+      notifyListeners();
+      throw HttpException('Could not delete product.');
+    }
+    existingPlace = null;
   }
 }

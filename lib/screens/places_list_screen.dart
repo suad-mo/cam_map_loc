@@ -1,9 +1,10 @@
+import 'package:cam_map_loc/widgets/place_item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/great_places.dart';
 import './add_place_screen.dart';
-import './place_detail_screen.dart';
+//import './place_detail_screen.dart';
 
 // ignore: use_key_in_widget_constructors
 class PlacesListScreen extends StatelessWidget {
@@ -38,24 +39,26 @@ class PlacesListScreen extends StatelessWidget {
                     ? ch!
                     : ListView.builder(
                         itemCount: greatPlaces.items.length,
-                        itemBuilder: (ctx, i) => ListTile(
-                          leading: CircleAvatar(
-                            backgroundImage:
-                                FileImage(greatPlaces.items[i].image),
-                          ),
-                          title: Text(greatPlaces.items[i].title),
-                          subtitle: greatPlaces.items[i].location.address ==
-                                  null
-                              ? const Text('Null')
-                              : Text(greatPlaces.items[i].location.address!),
-                          // Text('Subtitle'),
-                          onTap: () {
-                            Navigator.of(context).pushNamed(
-                              PlaceDetailScreen.routeName,
-                              arguments: greatPlaces.items[i].id,
-                            );
-                          },
-                        ),
+                        itemBuilder: (ctx, i) =>
+                            PlaceItem(greatPlaces.items[i]),
+                        // ListTile(
+                        //   leading: CircleAvatar(
+                        //     backgroundImage:
+                        //         FileImage(greatPlaces.items[i].image),
+                        //   ),
+                        //   title: Text(greatPlaces.items[i].title),
+                        //   subtitle: greatPlaces.items[i].location.address ==
+                        //           null
+                        //       ? const Text('Null')
+                        //       : Text(greatPlaces.items[i].location.address!),
+                        //   // Text('Subtitle'),
+                        //   onTap: () {
+                        //     Navigator.of(context).pushNamed(
+                        //       PlaceDetailScreen.routeName,
+                        //       arguments: greatPlaces.items[i].id,
+                        //     );
+                        //   },
+                        // ),
                       ),
               ),
       ),
